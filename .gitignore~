@@ -1,4 +1,3 @@
-src/flake8
 env
 *.DS_Store
 *.pyc
