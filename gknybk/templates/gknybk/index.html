@@ -1,3 +1,4 @@
+{% load static %}
 {% load widget_tweaks %}
 <!DOCTYPE html>
 <html>
@@ -5,6 +6,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="{% static 'css/gk.css' %}">
   <meta charset="utf-8">
   <title>Gépkocsi nyereménybetékönyvek</title>
 </head>
@@ -12,13 +15,14 @@
   <a href="{% url 'rogzites' %}" class="btn btn-outline-primary">Új betétkönyv rögzítése</a>
   <div>
     {% if cuccok %}
-      Megvásárolt betétkönyvek:
+      <h1 style = "text-align:center">Megvásárolt betétkönyvek</h1>
         <table class="table">
           <thead>
             <th scope="col">#</th>
             <th scope="col">Kié</th>
             <th scope="col">Sorszám</th>
             <th scope="col">Érték</th>
+            <th scope="col"></th>
           </thead>
           <tbody>
         {% load humanize %}
@@ -28,12 +32,17 @@
            <th>{{betetkonyvxuser.owner}}</th>
            <th>{{betetkonyvxuser.betetkonyv}}</th>
            <th>{{betetkonyvxuser.ertek|intcomma}} Ft</th>
+           <th> <a class="btn btn-danger" href="{% url 'remove_betetkonyv' pk=betetkonyvxuser.id %}"><span class="glyphicon glyphicon-plus">X</span></a>
+
+           </th>
          </tr>
         {% endfor %}
           </tbody>
       </table>
 
-
+      {% if ossz %}
+        <div>Összesen ennyi betétkönyv van rögzítve: {{ossz}}</div>
+      {% endif %}
 
 
 

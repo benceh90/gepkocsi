@@ -8,4 +8,6 @@ urlpatterns = [
     # ex: /index/5/
     path('rogzites/', views.rogzites, name='rogzites'),
 
+    path('remove_betetkonyv/<pk>', views.remove_betetkonyv, name='remove_betetkonyv'),
+
 ]

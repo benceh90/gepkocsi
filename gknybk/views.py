@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from django.http import HttpResponse
 from .models import Owner
@@ -11,11 +11,12 @@ def index(request):
 
     template = loader.get_template('gknybk/index.html')
     if request.method == 'POST':
-        cuccok = Betetkonyv_User.objects.all()
+        cuccok = Betetkonyv_User.objects.all()[:10]
     else:
-        cuccok = Betetkonyv_User.objects.all()
+        cuccok = Betetkonyv_User.objects.all()[:10]
     context = {
         'cuccok' : cuccok,
+        'ossz': Betetkonyv_User.objects.all().count()
     }
     return HttpResponse(template.render(context, request))
 
@@ -33,7 +34,10 @@ def rogzites(request):
             #print form.cleaned_data['my_form_field_name']
 
             if "-" in form.cleaned_data['betetkonyv']:
-                print("Itt még annyi mentést kell csinálni, ahány betétkönyv van")
+                tol,ig=form.cleaned_data['betetkonyv'].split("-")
+                for x in range(int(tol), int(ig)+1):
+                    newbetet = Betetkonyv_User(betetkonyv = str(x), owner = form.cleaned_data['owner'], ertek = form.cleaned_data['ertek'])
+                    newbetet.save()
             else:
                 form.save()
             return redirect('index')
@@ -45,8 +49,7 @@ def rogzites(request):
         #for row in form.fields.values(): print(row)
         return render(request, 'gknybk/rogzites.html', {'form': form})
 
-def owner(request,owner_id):
-    return HttpResponse("Userek betétkönyvei, ez éppen a következő useré: %s" % owner_id)
-
-def sorsoltak(request):
-    return HttpResponse("Itt lesz az összes kisorsolt betétkönyv")
+def remove_betetkonyv(request, pk):
+    betet = get_object_or_404(Betetkonyv_User, pk=pk)
+    betet.delete()
+    return redirect('index')

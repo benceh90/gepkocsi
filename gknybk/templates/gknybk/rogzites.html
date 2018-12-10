@@ -11,7 +11,9 @@
   <title>Gépkocsi nyereménybetékönyvek</title>
 </head>
 <body style = "padding-left: 15px;padding-right: 15px;">
-  <form method="post" style = "width:80%">
+
+  <form method="post" style = "width:80%; margin: 3em auto">
+    <h1 style = "text-align:center">Betétkönyv rögzítése</h1>
     {% csrf_token %}
 
     {% for hidden_field in form.hidden_fields %}
