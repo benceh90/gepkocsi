@@ -4,9 +4,11 @@ from django.http import HttpResponse
 from .models import Owner
 from .models import Betetkonyv_User
 from .forms import BetetkonyvUserForm
+from django.contrib.auth.decorators import login_required
 
 from django.forms import inlineformset_factory
 # Create your views here.
+@login_required
 def index(request):
 
     template = loader.get_template('gknybk/index.html')
@@ -20,6 +22,11 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
+
+def login(request):
+    return render(request, 'gknybk/login.html')
+
+@login_required
 def rogzites(request):
     if request.method == 'POST':
 
@@ -49,6 +56,7 @@ def rogzites(request):
         #for row in form.fields.values(): print(row)
         return render(request, 'gknybk/rogzites.html', {'form': form})
 
+@login_required
 def remove_betetkonyv(request, pk):
     betet = get_object_or_404(Betetkonyv_User, pk=pk)
     betet.delete()

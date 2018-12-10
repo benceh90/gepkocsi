@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from gknybk import views
 urlpatterns = [
     path('', include('gknybk.urls')),
     path('admin/', admin.site.urls),
+    path('login', views.login, name='login'),
+    path('auth/', include('social_django.urls')),
+url(r'^auth/', include('rest_framework_social_oauth2.urls')), # <- Here
 
 ]
