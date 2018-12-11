@@ -134,7 +134,7 @@ USE_L10N = True
 USE_TZ = True
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='715082989468-1j8ovdfli5ocon7acas9dh5chmupkcjp.apps.googleusercontent.com'  #Paste CLient Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'mhaQH85LjA6aSH6AyPPtu_YR' #Paste Secret Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '' #Paste Secret Key
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = ''
